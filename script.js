@@ -1,507 +1,786 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const body = document.body;
+const body = document.body;
 
-    const languageBtn = document.getElementById("languageBtn");
-    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
-    const mobileMenu = document.getElementById("mobileMenu");
+const languageBtn = document.getElementById("languageBtn");
+const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
 
-    const navbar = document.querySelector(".navbar");
-    const cursorGlow = document.querySelector(".cursor-glow");
+const navbar = document.querySelector(".navbar");
+const cursorGlow = document.querySelector(".cursor-glow");
 
-    const hero = document.querySelector(".hero");
-    const heroContent = document.querySelector(".hero-content");
-    const heroVisual = document.querySelector(".hero-visual");
-    const phone = document.querySelector(".phone");
+const hero = document.querySelector(".hero");
+const heroContent = document.querySelector(".hero-content");
+const heroVisual = document.querySelector(".hero-visual");
 
-    let currentLanguage = "fa";
+let currentLanguage = "fa";
+let ticking = false;
+
+const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+).matches;
 
 
-    /* =========================================
-       LANGUAGE
-    ========================================= */
+/* =========================================
+   LANGUAGE
+========================================= */
 
-    function updateLanguage() {
+function updateLanguage() {
 
-        const elements = document.querySelectorAll("[data-fa][data-en]");
+    const elements = document.querySelectorAll(
+        "[data-fa][data-en]"
+    );
 
-        elements.forEach(element => {
+    elements.forEach(element => {
 
-            if (currentLanguage === "fa") {
-
-                element.textContent =
-                    element.getAttribute("data-fa");
-
-            } else {
-
-                element.textContent =
-                    element.getAttribute("data-en");
-
-            }
-
-        });
-
+        const fa = element.getAttribute("data-fa");
+        const en = element.getAttribute("data-en");
 
         if (currentLanguage === "fa") {
-
-            body.classList.remove("en");
-            body.setAttribute("dir", "rtl");
-            body.setAttribute("lang", "fa");
-
-            if (languageBtn) {
-                languageBtn.textContent = "EN";
-            }
-
-            document
-                .querySelectorAll(".nav-links a")
-                .forEach(link => {
-
-                    const fa =
-                        link.getAttribute("data-fa");
-
-                    const en =
-                        link.getAttribute("data-en");
-
-                    if (fa) {
-                        link.textContent = fa;
-                    } else if (en) {
-                        link.textContent = en;
-                    }
-
-                });
-
+            element.textContent = fa;
         } else {
+            element.textContent = en;
+        }
 
-            body.classList.add("en");
-            body.setAttribute("dir", "ltr");
-            body.setAttribute("lang", "en");
+    });
 
-            if (languageBtn) {
-                languageBtn.textContent = "FA";
-            }
 
-            document
-                .querySelectorAll(".nav-links a")
-                .forEach(link => {
+    if (currentLanguage === "fa") {
 
-                    const fa =
-                        link.getAttribute("data-fa");
+        body.classList.remove("en");
+        body.setAttribute("dir", "rtl");
+        body.setAttribute("lang", "fa");
 
-                    const en =
-                        link.getAttribute("data-en");
+        if (languageBtn) {
+            languageBtn.textContent = "EN";
+        }
 
-                    if (en) {
-                        link.textContent = en;
-                    } else if (fa) {
-                        link.textContent = fa;
-                    }
+    } else {
 
-                });
+        body.classList.add("en");
+        body.setAttribute("dir", "ltr");
+        body.setAttribute("lang", "en");
 
+        if (languageBtn) {
+            languageBtn.textContent = "FA";
         }
 
     }
 
+}
 
-    if (languageBtn) {
 
-        languageBtn.addEventListener("click", () => {
+if (languageBtn) {
 
-            currentLanguage =
-                currentLanguage === "fa"
-                    ? "en"
-                    : "fa";
+    languageBtn.addEventListener("click", () => {
 
-            updateLanguage();
+        currentLanguage =
+            currentLanguage === "fa"
+                ? "en"
+                : "fa";
 
-        });
+        updateLanguage();
 
+    });
+
+}
+
+
+/* =========================================
+   MOBILE MENU
+========================================= */
+
+function closeMobileMenu() {
+
+    if (!mobileMenu) {
+        return;
     }
 
+    mobileMenu.classList.remove("open");
 
-    /* =========================================
-       MOBILE MENU
-    ========================================= */
+    if (mobileMenuBtn) {
+        mobileMenuBtn.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    }
 
-    if (mobileMenuBtn && mobileMenu) {
+}
 
-        mobileMenuBtn.addEventListener("click", () => {
 
+if (mobileMenuBtn && mobileMenu) {
+
+    mobileMenuBtn.setAttribute(
+        "aria-expanded",
+        "false"
+    );
+
+
+    mobileMenuBtn.addEventListener("click", () => {
+
+        const isOpen =
             mobileMenu.classList.toggle("open");
+
+        mobileMenuBtn.setAttribute(
+            "aria-expanded",
+            isOpen ? "true" : "false"
+        );
+
+    });
+
+
+    mobileMenu
+        .querySelectorAll("a")
+        .forEach(link => {
+
+            link.addEventListener(
+                "click",
+                closeMobileMenu
+            );
 
         });
 
 
-        document
-            .querySelectorAll(".mobile-menu a")
-            .forEach(link => {
+    document.addEventListener("click", event => {
 
-                link.addEventListener("click", () => {
+        if (
+            !mobileMenu.contains(event.target) &&
+            !mobileMenuBtn.contains(event.target)
+        ) {
+            closeMobileMenu();
+        }
 
-                    mobileMenu.classList.remove("open");
+    });
+
+}
+
+
+/* =========================================
+   FAQ
+========================================= */
+
+document
+    .querySelectorAll(".faq-question")
+    .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            const item =
+                button.closest(".faq-item");
+
+            if (!item) {
+                return;
+            }
+
+            const wasActive =
+                item.classList.contains("active");
+
+
+            document
+                .querySelectorAll(".faq-item")
+                .forEach(other => {
+
+                    other.classList.remove("active");
 
                 });
 
-            });
 
-    }
+            if (!wasActive) {
 
+                item.classList.add("active");
 
-    /* =========================================
-       FAQ
-    ========================================= */
-
-    document
-        .querySelectorAll(".faq-question")
-        .forEach(button => {
-
-            button.addEventListener("click", () => {
-
-                const item =
-                    button.closest(".faq-item");
-
-                if (!item) {
-                    return;
-                }
-
-                document
-                    .querySelectorAll(".faq-item")
-                    .forEach(other => {
-
-                        if (other !== item) {
-                            other.classList.remove("active");
-                        }
-
-                    });
-
-                item.classList.toggle("active");
-
-            });
+            }
 
         });
 
-
-    /* =========================================
-       SCROLL REVEAL
-    ========================================= */
-
-    const revealElements =
-        document.querySelectorAll(".reveal");
+    });
 
 
-    if ("IntersectionObserver" in window) {
+/* =========================================
+   SCROLL REVEAL
+========================================= */
 
-        const revealObserver =
-            new IntersectionObserver(
-                entries => {
-
-                    entries.forEach(entry => {
-
-                        if (entry.isIntersecting) {
-
-                            entry.target.classList.add("visible");
-
-                            revealObserver.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    });
-
-                },
-                {
-                    threshold: 0.12
-                }
-            );
+const revealElements =
+    document.querySelectorAll(".reveal");
 
 
-        revealElements.forEach(element => {
+if (
+    "IntersectionObserver" in window &&
+    !reducedMotion
+) {
 
-            revealObserver.observe(element);
+    const revealObserver =
+        new IntersectionObserver(
+            entries => {
 
-        });
+                entries.forEach(entry => {
 
-    } else {
+                    if (
+                        entry.isIntersecting
+                    ) {
 
-        revealElements.forEach(element => {
+                        entry.target.classList.add(
+                            "visible"
+                        );
 
-            element.classList.add("visible");
+                        revealObserver.unobserve(
+                            entry.target
+                        );
 
-        });
+                    }
 
-    }
+                });
 
-
-    /* =========================================
-       CURSOR GLOW
-    ========================================= */
-
-    if (cursorGlow) {
-
-        let mouseX = 0;
-        let mouseY = 0;
-
-        let glowX = 0;
-        let glowY = 0;
+            },
+            {
+                threshold: 0.10,
+                rootMargin: "0px 0px -50px 0px"
+            }
+        );
 
 
-        document.addEventListener("mousemove", event => {
+    revealElements.forEach(element => {
+
+        revealObserver.observe(element);
+
+    });
+
+} else {
+
+    revealElements.forEach(element => {
+
+        element.classList.add("visible");
+
+    });
+
+}
+
+
+/* =========================================
+   CURSOR GLOW
+========================================= */
+
+if (
+    cursorGlow &&
+    !reducedMotion &&
+    window.matchMedia("(pointer: fine)").matches
+) {
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    let glowX = mouseX;
+    let glowY = mouseY;
+
+
+    document.addEventListener(
+        "mousemove",
+        event => {
 
             mouseX = event.clientX;
             mouseY = event.clientY;
 
-        });
-
-
-        function animateCursor() {
-
-            glowX += (mouseX - glowX) * 0.12;
-            glowY += (mouseY - glowY) * 0.12;
-
-            cursorGlow.style.left =
-                glowX + "px";
-
-            cursorGlow.style.top =
-                glowY + "px";
-
-            requestAnimationFrame(
-                animateCursor
-            );
-
-        }
-
-        animateCursor();
-
-    }
-
-
-    /* =========================================
-       NAVBAR SCROLL
-    ========================================= */
-
-    function updateNavbar() {
-
-        if (!navbar) {
-            return;
-        }
-
-        if (window.scrollY > 30) {
-
-            navbar.style.background =
-                "rgba(5,3,10,.90)";
-
-            navbar.style.borderBottomColor =
-                "rgba(255,255,255,.08)";
-
-        } else {
-
-            navbar.style.background =
-                "rgba(5,3,10,.68)";
-
-            navbar.style.borderBottomColor =
-                "rgba(255,255,255,.05)";
-
-        }
-
-    }
-
-
-    window.addEventListener(
-        "scroll",
-        updateNavbar,
+        },
         {
             passive: true
         }
     );
 
 
-    updateNavbar();
+    function animateCursor() {
+
+        glowX +=
+            (mouseX - glowX) * 0.10;
+
+        glowY +=
+            (mouseY - glowY) * 0.10;
 
 
-    /* =========================================
-       HERO MOUSE PARALLAX
-    ========================================= */
-
-    const reducedMotion =
-        window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        ).matches;
+        cursorGlow.style.transform =
+            `translate3d(${glowX}px, ${glowY}px, 0)`;
 
 
-    if (
-        hero &&
-        heroVisual &&
-        phone &&
-        !reducedMotion &&
-        window.innerWidth > 900
-    ) {
+        requestAnimationFrame(
+            animateCursor
+        );
 
-        let targetX = 0;
-        let targetY = 0;
-
-        let currentX = 0;
-        let currentY = 0;
+    }
 
 
-        hero.addEventListener(
-            "mousemove",
-            event => {
+    animateCursor();
 
-                const rect =
-                    hero.getBoundingClientRect();
+}
 
-                const x =
-                    (event.clientX - rect.left)
-                    / rect.width;
 
-                const y =
-                    (event.clientY - rect.top)
-                    / rect.height;
+/* =========================================
+   NAVBAR
+========================================= */
 
-                targetX =
-                    (x - 0.5) * 12;
+function updateNavbar() {
 
-                targetY =
-                    (y - 0.5) * -10;
+    if (!navbar) {
+        return;
+    }
 
-            }
+    const scrolled =
+        window.scrollY > 24;
+
+
+    navbar.classList.toggle(
+        "scrolled",
+        scrolled
+    );
+
+
+    if (scrolled) {
+
+        navbar.style.background =
+            "rgba(5, 3, 10, .88)";
+
+        navbar.style.borderBottomColor =
+            "rgba(255, 255, 255, .08)";
+
+    } else {
+
+        navbar.style.background =
+            "rgba(5, 3, 10, .62)";
+
+        navbar.style.borderBottomColor =
+            "rgba(255, 255, 255, .05)";
+
+    }
+
+}
+
+
+/* =========================================
+   SCROLL BACKGROUND
+========================================= */
+
+function updateScrollBackground() {
+
+    const scrollY = window.scrollY;
+    const documentHeight =
+        document.documentElement.scrollHeight;
+
+    const viewportHeight =
+        window.innerHeight;
+
+    const maxScroll =
+        Math.max(
+            1,
+            documentHeight - viewportHeight
+        );
+
+    const progress =
+        Math.min(
+            1,
+            Math.max(
+                0,
+                scrollY / maxScroll
+            )
         );
 
 
-        hero.addEventListener(
-            "mouseleave",
-            () => {
+    body.style.setProperty(
+        "--scroll-progress",
+        progress.toFixed(3)
+    );
 
-                targetX = 0;
-                targetY = 0;
 
-            }
+    const sections =
+        document.querySelectorAll(
+            "main > section, section"
         );
 
 
-        function animateHeroParallax() {
-
-            currentX +=
-                (targetX - currentX) * 0.06;
-
-            currentY +=
-                (targetY - currentY) * 0.06;
+    let activeSection = null;
+    let smallestDistance = Infinity;
 
 
-            phone.style.transform =
-                `rotate(${4 + currentX * 0.12}deg)
-                 translate3d(${currentX}px, ${currentY}px, 0)`;
+    sections.forEach(section => {
 
+        const rect =
+            section.getBoundingClientRect();
 
-            requestAnimationFrame(
-                animateHeroParallax
+        const distance =
+            Math.abs(
+                rect.top -
+                window.innerHeight * 0.35
             );
+
+
+        if (distance < smallestDistance) {
+
+            smallestDistance = distance;
+            activeSection = section;
+
+        }
+
+    });
+
+
+    if (activeSection) {
+
+        const sectionId =
+            activeSection.id ||
+            activeSection.dataset.theme ||
+            "";
+
+
+        body.setAttribute(
+            "data-active-section",
+            sectionId
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   HERO PARALLAX
+========================================= */
+
+if (
+    hero &&
+    heroVisual &&
+    !reducedMotion &&
+    window.innerWidth > 900
+) {
+
+    let targetX = 0;
+    let targetY = 0;
+
+    let currentX = 0;
+    let currentY = 0;
+
+
+    hero.addEventListener(
+        "mousemove",
+        event => {
+
+            const rect =
+                hero.getBoundingClientRect();
+
+            if (
+                rect.width === 0 ||
+                rect.height === 0
+            ) {
+                return;
+            }
+
+
+            const x =
+                (event.clientX - rect.left)
+                / rect.width;
+
+            const y =
+                (event.clientY - rect.top)
+                / rect.height;
+
+
+            targetX =
+                (x - 0.5) * 14;
+
+            targetY =
+                (y - 0.5) * -10;
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    hero.addEventListener(
+        "mouseleave",
+        () => {
+
+            targetX = 0;
+            targetY = 0;
+
+        }
+    );
+
+
+    function animateHeroParallax() {
+
+        currentX +=
+            (targetX - currentX) * 0.055;
+
+        currentY +=
+            (targetY - currentY) * 0.055;
+
+
+        if (heroContent) {
+
+            heroContent.style.transform =
+                `translate3d(
+                    ${currentX * -0.12}px,
+                    ${currentY * -0.08}px,
+                    0
+                )`;
 
         }
 
 
-        animateHeroParallax();
+        heroVisual.style.transform =
+            `translate3d(
+                ${currentX}px,
+                ${currentY}px,
+                0
+            )`;
+
+
+        requestAnimationFrame(
+            animateHeroParallax
+        );
 
     }
 
 
-    /* =========================================
-       HERO CTA FEEDBACK
-    ========================================= */
+    animateHeroParallax();
 
-    document
-        .querySelectorAll(".primary-btn")
-        .forEach(button => {
+}
 
-            button.addEventListener(
-                "mouseenter",
-                () => {
 
-                    button.style.transition =
-                        "transform .25s ease, box-shadow .25s ease";
+/* =========================================
+   HERO POINTER LIGHT
+========================================= */
 
-                }
+if (
+    hero &&
+    !reducedMotion &&
+    window.matchMedia("(pointer: fine)").matches
+) {
+
+    hero.addEventListener(
+        "pointermove",
+        event => {
+
+            const rect =
+                hero.getBoundingClientRect();
+
+            const x =
+                ((event.clientX - rect.left)
+                / rect.width) * 100;
+
+            const y =
+                ((event.clientY - rect.top)
+                / rect.height) * 100;
+
+
+            hero.style.setProperty(
+                "--pointer-x",
+                `${x}%`
             );
 
-        });
+            hero.style.setProperty(
+                "--pointer-y",
+                `${y}%`
+            );
+
+        },
+        {
+            passive: true
+        }
+    );
+
+}
 
 
-    /* =========================================
-       SMOOTH ANCHOR HANDLING
-    ========================================= */
+/* =========================================
+   SCROLL EVENTS
+========================================= */
 
-    document
-        .querySelectorAll('a[href^="#"]')
-        .forEach(link => {
+function handleScroll() {
 
-            link.addEventListener(
-                "click",
-                event => {
+    if (ticking) {
+        return;
+    }
 
-                    const targetId =
-                        link.getAttribute("href");
-
-                    if (
-                        !targetId ||
-                        targetId === "#"
-                    ) {
-                        return;
-                    }
-
-                    const target =
-                        document.querySelector(targetId);
-
-                    if (!target) {
-                        return;
-                    }
-
-                    event.preventDefault();
-
-                    const navbarHeight =
-                        navbar
-                            ? navbar.offsetHeight
-                            : 0;
-
-                    const targetPosition =
-                        target.getBoundingClientRect().top
-                        + window.scrollY
-                        - navbarHeight
-                        - 12;
+    ticking = true;
 
 
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: reducedMotion
+    requestAnimationFrame(() => {
+
+        updateNavbar();
+        updateScrollBackground();
+
+        ticking = false;
+
+    });
+
+}
+
+
+window.addEventListener(
+    "scroll",
+    handleScroll,
+    {
+        passive: true
+    }
+);
+
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        updateNavbar();
+        updateScrollBackground();
+
+    },
+    {
+        passive: true
+    }
+);
+
+
+updateNavbar();
+updateScrollBackground();
+
+
+/* =========================================
+   SMOOTH ANCHOR HANDLING
+========================================= */
+
+document
+    .querySelectorAll('a[href^="#"]')
+    .forEach(link => {
+
+        link.addEventListener(
+            "click",
+            event => {
+
+                const targetId =
+                    link.getAttribute("href");
+
+
+                if (
+                    !targetId ||
+                    targetId === "#"
+                ) {
+                    return;
+                }
+
+
+                const target =
+                    document.querySelector(
+                        targetId
+                    );
+
+
+                if (!target) {
+                    return;
+                }
+
+
+                event.preventDefault();
+
+
+                const navbarHeight =
+                    navbar
+                        ? navbar.offsetHeight
+                        : 0;
+
+
+                const targetPosition =
+                    target.getBoundingClientRect().top
+                    + window.scrollY
+                    - navbarHeight
+                    - 14;
+
+
+                window.scrollTo({
+
+                    top: targetPosition,
+
+                    behavior:
+                        reducedMotion
                             ? "auto"
                             : "smooth"
-                    });
 
-                }
-            );
-
-        });
+                });
 
 
-    /* =========================================
-       CURRENT YEAR
-    ========================================= */
+                closeMobileMenu();
 
-    const year =
-        document.getElementById("year");
+            }
+        );
 
-    if (year) {
-
-        year.textContent =
-            new Date().getFullYear();
-
-    }
+    });
 
 
-    /* =========================================
-       INITIAL STATE
-    ========================================= */
+/* =========================================
+   CTA MICRO INTERACTION
+========================================= */
 
-    updateLanguage();
+document
+    .querySelectorAll(
+        ".primary-btn, .secondary-btn"
+    )
+    .forEach(button => {
+
+        button.addEventListener(
+            "pointerdown",
+            () => {
+
+                button.classList.add(
+                    "is-pressed"
+                );
+
+            }
+        );
+
+
+        button.addEventListener(
+            "pointerup",
+            () => {
+
+                button.classList.remove(
+                    "is-pressed"
+                );
+
+            }
+        );
+
+
+        button.addEventListener(
+            "pointerleave",
+            () => {
+
+                button.classList.remove(
+                    "is-pressed"
+                );
+
+            }
+        );
+
+    });
+
+
+/* =========================================
+   CURRENT YEAR
+========================================= */
+
+const year =
+    document.getElementById("year");
+
+
+if (year) {
+
+    year.textContent =
+        new Date().getFullYear();
+
+}
+
+
+/* =========================================
+   INITIAL STATE
+========================================= */
+
+updateLanguage();
 
 });
