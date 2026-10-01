@@ -4288,3 +4288,702 @@ html {
 }
 
         }
+/* =========================================================
+CREATOR CARD
+========================================================= */
+
+.creator-section {
+width: 100%;
+padding: 70px 20px 105px;
+position: relative;
+overflow: hidden;
+}
+
+.creator-card {
+width: min(100%, 900px);
+min-height: 400px;
+margin: 0 auto;
+padding: 34px 40px;
+position: relative;
+overflow: hidden;
+isolation: isolate;
+
+border-radius: 34px;
+border: 1px solid rgba(255, 255, 255, 0.09);
+
+background:
+    radial-gradient(
+        circle at 78% 18%,
+        rgba(155, 92, 255, 0.18),
+        transparent 30%
+    ),
+    radial-gradient(
+        circle at 15% 85%,
+        rgba(54, 217, 255, 0.12),
+        transparent 30%
+    ),
+    radial-gradient(
+        circle at 52% 45%,
+        rgba(99, 246, 160, 0.035),
+        transparent 45%
+    ),
+    linear-gradient(
+        135deg,
+        rgba(12, 16, 28, 0.98),
+        rgba(3, 5, 11, 0.99)
+    );
+
+box-shadow:
+    0 35px 100px rgba(0, 0, 0, 0.48),
+    0 0 80px rgba(139, 92, 246, 0.08);
+
+transition:
+    transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.65s ease,
+    border-color 0.65s ease;
+
+}
+
+.creator-card::before {
+content: "";
+position: absolute;
+inset: -2px;
+z-index: -2;
+border-radius: inherit;
+
+background:
+    conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        transparent 35deg,
+        rgba(155, 92, 255, 0.9) 75deg,
+        rgba(54, 217, 255, 0.85) 115deg,
+        transparent 155deg,
+        transparent 235deg,
+        rgba(99, 246, 160, 0.7) 285deg,
+        rgba(255, 173, 92, 0.55) 315deg,
+        transparent 350deg
+    );
+
+animation: creatorBorderSpin 9s linear infinite;
+
+}
+
+.creator-card::after {
+content: "";
+position: absolute;
+inset: 1px;
+z-index: -1;
+border-radius: 33px;
+
+background:
+    radial-gradient(
+        circle at 50% 0%,
+        rgba(255, 255, 255, 0.055),
+        transparent 32%
+    ),
+    linear-gradient(
+        135deg,
+        #090c15,
+        #04060b
+    );
+
+}
+
+/* Hover */
+
+.creator-card:hover {
+transform:
+translateY(-9px)
+perspective(1200px)
+rotateX(1deg);
+
+border-color: rgba(180, 140, 255, 0.28);
+
+box-shadow:
+    0 45px 120px rgba(0, 0, 0, 0.58),
+    0 0 100px rgba(139, 92, 246, 0.14),
+    0 0 45px rgba(54, 217, 255, 0.04);
+
+}
+
+/* Ambient glow */
+
+.creator-card-glow {
+position: absolute;
+width: 440px;
+height: 440px;
+
+right: -170px;
+top: -220px;
+
+border-radius: 50%;
+
+background:
+    radial-gradient(
+        circle,
+        rgba(139, 92, 246, 0.2),
+        rgba(54, 217, 255, 0.035) 45%,
+        transparent 70%
+    );
+
+filter: blur(25px);
+pointer-events: none;
+
+animation:
+    creatorGlowMove 7s ease-in-out infinite alternate;
+
+}
+
+/* Moving light line */
+
+.creator-card-line {
+position: absolute;
+
+left: 8%;
+right: 8%;
+top: 0;
+
+height: 1px;
+
+background:
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(54, 217, 255, 0.65),
+        rgba(155, 92, 255, 0.95),
+        rgba(99, 246, 160, 0.65),
+        transparent
+    );
+
+box-shadow:
+    0 0 18px rgba(139, 92, 246, 0.55),
+    0 0 35px rgba(54, 217, 255, 0.15);
+
+animation: creatorLinePulse 3.2s ease-in-out infinite;
+
+}
+
+/* Scanline texture */
+
+.creator-card-noise {
+position: absolute;
+inset: 0;
+
+pointer-events: none;
+
+opacity: 0.035;
+
+background:
+    repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.55) 0,
+        rgba(255, 255, 255, 0.55) 1px,
+        transparent 1px,
+        transparent 5px
+    );
+
+mix-blend-mode: overlay;
+
+}
+
+/* Top */
+
+.creator-top {
+position: relative;
+z-index: 3;
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+gap: 20px;
+
+}
+
+.creator-index {
+font-family: Inter, sans-serif;
+
+font-size: 11px;
+font-weight: 700;
+
+letter-spacing: 0.25em;
+
+color: rgba(255, 255, 255, 0.32);
+
+}
+
+.creator-label {
+font-family: Inter, sans-serif;
+
+font-size: 10px;
+font-weight: 800;
+
+letter-spacing: 0.3em;
+
+color: #36d9ff;
+
+text-shadow:
+    0 0 18px rgba(54, 217, 255, 0.45);
+
+}
+
+/* Main content */
+
+.creator-content {
+position: relative;
+z-index: 3;
+
+padding: 68px 0 54px;
+
+}
+
+.creator-intro {
+display: block;
+
+margin-bottom: 13px;
+
+font-size: 14px;
+font-weight: 500;
+
+color: rgba(255, 255, 255, 0.48);
+
+}
+
+/* Name */
+
+.creator-name {
+margin: 0;
+
+direction: ltr;
+text-align: left;
+
+font-family: Inter, sans-serif;
+
+font-size: clamp(58px, 9vw, 108px);
+
+line-height: 0.88;
+
+letter-spacing: -0.075em;
+
+font-weight: 800;
+
+text-transform: uppercase;
+
+color: #ffffff;
+
+text-shadow:
+    0 0 30px rgba(255, 255, 255, 0.06);
+
+animation:
+    creatorNameFloat 5.5s ease-in-out infinite;
+
+}
+
+.creator-name span {
+display: block;
+
+margin-top: 7px;
+
+background:
+    linear-gradient(
+        100deg,
+        #ffffff 0%,
+        #dffaff 18%,
+        #8eeaff 35%,
+        #9a72ff 68%,
+        #d9c5ff 100%
+    );
+
+-webkit-background-clip: text;
+background-clip: text;
+
+color: transparent;
+
+filter:
+    drop-shadow(0 0 22px rgba(139, 92, 246, 0.18));
+
+}
+
+/* Role */
+
+.creator-role {
+margin-top: 25px;
+
+font-size: 14px;
+font-weight: 500;
+
+color: rgba(255, 255, 255, 0.62);
+
+transition:
+    color 0.4s ease,
+    transform 0.4s ease;
+
+}
+
+.creator-card:hover .creator-role {
+color: rgba(255, 255, 255, 0.82);
+transform: translateX(-3px);
+}
+
+/* L mark */
+
+.creator-mark {
+position: absolute;
+
+left: 58px;
+bottom: 76px;
+
+width: 104px;
+height: 104px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+border-radius: 50%;
+
+border: 1px solid rgba(255, 255, 255, 0.09);
+
+background:
+    radial-gradient(
+        circle,
+        rgba(139, 92, 246, 0.08),
+        rgba(255, 255, 255, 0.018) 65%,
+        transparent
+    );
+
+box-shadow:
+    inset 0 0 35px rgba(139, 92, 246, 0.08),
+    0 0 40px rgba(54, 217, 255, 0.05);
+
+transform: rotate(-12deg);
+
+animation:
+    creatorMarkFloat 5.5s ease-in-out infinite;
+
+}
+
+.creator-mark::before {
+content: "";
+
+position: absolute;
+inset: 9px;
+
+border-radius: 50%;
+
+border: 1px dashed rgba(255, 255, 255, 0.07);
+
+animation:
+    creatorInnerRotate 16s linear infinite;
+
+}
+
+.creator-mark span {
+position: relative;
+z-index: 2;
+
+font-family: Inter, sans-serif;
+
+font-size: 54px;
+font-weight: 800;
+
+color: #ffffff;
+
+text-shadow:
+    0 0 18px rgba(139, 92, 246, 0.8),
+    0 0 40px rgba(54, 217, 255, 0.22);
+
+}
+
+.creator-mark i {
+position: absolute;
+
+right: 12px;
+top: 13px;
+
+width: 7px;
+height: 7px;
+
+border-radius: 50%;
+
+background: #63f6a0;
+
+box-shadow:
+    0 0 10px #63f6a0,
+    0 0 25px rgba(99, 246, 160, 0.7);
+
+animation:
+    creatorDotPulse 2s ease-in-out infinite;
+
+}
+
+/* Bottom */
+
+.creator-bottom {
+position: relative;
+z-index: 3;
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+padding-top: 18px;
+
+border-top:
+    1px solid rgba(255, 255, 255, 0.07);
+
+}
+
+.creator-bottom span {
+font-family: Inter, sans-serif;
+
+font-size: 9px;
+font-weight: 700;
+
+letter-spacing: 0.22em;
+
+color: rgba(255, 255, 255, 0.3);
+
+}
+
+/* =========================================================
+ANIMATIONS
+========================================================= */
+
+@keyframes creatorBorderSpin {
+
+from {
+    transform: rotate(0deg);
+}
+
+to {
+    transform: rotate(360deg);
+}
+
+}
+
+@keyframes creatorGlowMove {
+
+0% {
+    transform:
+        translate3d(0, 0, 0)
+        scale(1);
+
+    opacity: 0.55;
+}
+
+50% {
+    transform:
+        translate3d(-30px, 25px, 0)
+        scale(1.08);
+
+    opacity: 0.85;
+}
+
+100% {
+    transform:
+        translate3d(-65px, 45px, 0)
+        scale(1.16);
+
+    opacity: 1;
+}
+
+}
+
+@keyframes creatorLinePulse {
+
+0%,
+100% {
+    opacity: 0.35;
+    transform: scaleX(0.92);
+}
+
+50% {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+}
+
+@keyframes creatorNameFloat {
+
+0%,
+100% {
+    transform: translateY(0);
+}
+
+50% {
+    transform: translateY(-4px);
+}
+
+}
+
+@keyframes creatorMarkFloat {
+
+0%,
+100% {
+    transform:
+        rotate(-12deg)
+        translateY(0);
+}
+
+50% {
+    transform:
+        rotate(-8deg)
+        translateY(-9px);
+}
+
+}
+
+@keyframes creatorInnerRotate {
+
+from {
+    transform: rotate(0deg);
+}
+
+to {
+    transform: rotate(-360deg);
+}
+
+}
+
+@keyframes creatorDotPulse {
+
+0%,
+100% {
+    transform: scale(1);
+    opacity: 0.6;
+}
+
+50% {
+    transform: scale(1.55);
+    opacity: 1;
+}
+
+}
+
+/* =========================================================
+MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+.creator-section {
+    padding: 55px 14px 75px;
+}
+
+.creator-card {
+    min-height: 375px;
+
+    padding: 25px 22px;
+
+    border-radius: 27px;
+}
+
+.creator-card::after {
+    border-radius: 26px;
+}
+
+.creator-content {
+    padding: 63px 0 82px;
+}
+
+.creator-name {
+    font-size: clamp(48px, 15vw, 76px);
+
+    letter-spacing: -0.07em;
+}
+
+.creator-intro {
+    font-size: 13px;
+}
+
+.creator-role {
+    max-width: 72%;
+
+    margin-top: 22px;
+
+    font-size: 12px;
+
+    line-height: 1.9;
+}
+
+.creator-mark {
+    width: 74px;
+    height: 74px;
+
+    left: 24px;
+    bottom: 73px;
+}
+
+.creator-mark::before {
+    inset: 7px;
+}
+
+.creator-mark span {
+    font-size: 38px;
+}
+
+.creator-mark i {
+    width: 5px;
+    height: 5px;
+
+    right: 8px;
+    top: 9px;
+}
+
+.creator-bottom span {
+    font-size: 8px;
+}
+
+}
+
+/* =========================================================
+VERY SMALL SCREENS
+========================================================= */
+
+@media (max-width: 390px) {
+
+.creator-card {
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+.creator-name {
+    font-size: 46px;
+}
+
+.creator-role {
+    max-width: 68%;
+}
+
+.creator-mark {
+    left: 19px;
+    width: 66px;
+    height: 66px;
+}
+
+.creator-mark span {
+    font-size: 34px;
+}
+
+}
+
+/* =========================================================
+REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+.creator-card::before,
+.creator-card-glow,
+.creator-card-line,
+.creator-name,
+.creator-mark,
+.creator-mark::before,
+.creator-mark i {
+    animation: none;
+}
+
+}
