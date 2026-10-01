@@ -51,20 +51,33 @@ button {
     font-family: inherit;
 }
 
+/* =========================
+   BACKGROUND
+========================= */
+
 .background {
     position: fixed;
     inset: 0;
     z-index: -10;
     overflow: hidden;
     background:
-        radial-gradient(circle at 50% 0%, rgba(111, 45, 190, .16), transparent 34%),
+        radial-gradient(
+            circle at 72% 20%,
+            rgba(123, 48, 230, .15),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 20% 70%,
+            rgba(95, 35, 180, .08),
+            transparent 30%
+        ),
         #05030a;
 }
 
 .grid {
     position: absolute;
     inset: 0;
-    opacity: .18;
+    opacity: .13;
     background-image:
         linear-gradient(rgba(157, 91, 255, .07) 1px, transparent 1px),
         linear-gradient(90deg, rgba(157, 91, 255, .07) 1px, transparent 1px);
@@ -75,7 +88,7 @@ button {
 .stars {
     position: absolute;
     inset: 0;
-    opacity: .5;
+    opacity: .28;
     background-image:
         radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1px),
         radial-gradient(circle, rgba(173,112,255,.7) 1px, transparent 1px);
@@ -86,15 +99,16 @@ button {
 .orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(100px);
-    opacity: .25;
+    filter: blur(120px);
+    opacity: .18;
+    animation: orbFloat 9s ease-in-out infinite alternate;
 }
 
 .orb-one {
-    width: 450px;
-    height: 450px;
+    width: 500px;
+    height: 500px;
     background: #7b35d8;
-    top: -220px;
+    top: -260px;
     right: 8%;
 }
 
@@ -104,14 +118,26 @@ button {
     background: #4c20a5;
     top: 40%;
     left: -180px;
+    animation-delay: -3s;
 }
 
 .orb-three {
-    width: 400px;
-    height: 400px;
+    width: 450px;
+    height: 450px;
     background: #a64cff;
-    bottom: -250px;
+    bottom: -300px;
     right: 20%;
+    animation-delay: -6s;
+}
+
+@keyframes orbFloat {
+    from {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    to {
+        transform: translate3d(0, 25px, 0) scale(1.08);
+    }
 }
 
 .cursor-glow {
@@ -121,9 +147,18 @@ button {
     border-radius: 50%;
     pointer-events: none;
     z-index: 999;
-    background: radial-gradient(circle, rgba(151, 79, 255, .12), transparent 68%);
+    background:
+        radial-gradient(
+            circle,
+            rgba(151, 79, 255, .12),
+            transparent 68%
+        );
     transform: translate(-50%, -50%);
 }
+
+/* =========================
+   NAVBAR
+========================= */
 
 .navbar {
     position: fixed;
@@ -217,6 +252,12 @@ button {
     font-weight: 700;
     background: white;
     color: #100817;
+    transition: .25s;
+}
+
+.nav-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255,255,255,.12);
 }
 
 .mobile-menu-btn {
@@ -238,20 +279,66 @@ button {
     display: none;
 }
 
+/* =========================
+   HERO
+========================= */
+
 .hero {
     width: min(var(--max), calc(100% - 36px));
-    min-height: 850px;
+    min-height: 900px;
     margin: auto;
     display: grid;
     grid-template-columns: 1.05fr .95fr;
     align-items: center;
-    gap: 40px;
-    padding-top: 100px;
+    gap: 60px;
+    padding-top: 105px;
+    position: relative;
+}
+
+/* Large atmospheric glow behind hero */
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    right: -100px;
+    top: 120px;
+    border-radius: 50%;
+    background:
+        radial-gradient(
+            circle,
+            rgba(137, 58, 255, .13),
+            transparent 68%
+        );
+    filter: blur(20px);
+    pointer-events: none;
+}
+
+/* Fine light behind phone */
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 330px;
+    height: 600px;
+    right: 160px;
+    top: 190px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(155,92,255,.035),
+            transparent
+        );
+    filter: blur(30px);
+    transform: rotate(12deg);
+    pointer-events: none;
 }
 
 .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 5;
 }
 
 .status-pill {
@@ -259,13 +346,21 @@ button {
     display: flex;
     align-items: center;
     gap: 9px;
-    padding: 8px 13px;
+    padding: 9px 14px;
     border: 1px solid rgba(155,92,255,.22);
     border-radius: 999px;
-    background: rgba(128,65,205,.08);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(155,92,255,.12),
+            rgba(255,255,255,.025)
+        );
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.18),
+        inset 0 1px rgba(255,255,255,.04);
     color: #c9b9dc;
     font-size: 11px;
-    margin-bottom: 28px;
+    margin-bottom: 30px;
 }
 
 .status-dot {
@@ -273,14 +368,31 @@ button {
     height: 7px;
     border-radius: 50%;
     background: #8fffbb;
-    box-shadow: 0 0 12px #58ff99;
+    box-shadow:
+        0 0 8px #58ff99,
+        0 0 18px rgba(88,255,153,.5);
+    animation: statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+    0%, 100% {
+        box-shadow:
+            0 0 8px #58ff99,
+            0 0 18px rgba(88,255,153,.5);
+    }
+
+    50% {
+        box-shadow:
+            0 0 4px #58ff99,
+            0 0 8px rgba(88,255,153,.2);
+    }
 }
 
 .hero h1 {
-    max-width: 700px;
-    font-size: clamp(52px, 7vw, 90px);
-    line-height: .98;
-    letter-spacing: -4px;
+    max-width: 760px;
+    font-size: clamp(58px, 7vw, 94px);
+    line-height: 1.02;
+    letter-spacing: -5px;
     font-weight: 800;
 }
 
@@ -288,8 +400,18 @@ button {
 .section-heading h2 span,
 .vip-content h2 span,
 .download-content h2 span {
-    color: var(--purple-light);
-    text-shadow: 0 0 35px rgba(156,91,255,.25);
+    background:
+        linear-gradient(
+            110deg,
+            #ffffff 0%,
+            #d6b5ff 28%,
+            #9b5cff 65%,
+            #cba5ff 100%
+        );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: none;
 }
 
 .hero-description {
@@ -297,14 +419,18 @@ button {
     color: var(--muted);
     line-height: 2;
     font-size: 15px;
-    margin-top: 28px;
+    margin-top: 30px;
 }
+
+/* =========================
+   HERO ACTIONS
+========================= */
 
 .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 34px;
+    margin-top: 36px;
 }
 
 .primary-btn,
@@ -313,35 +439,56 @@ button {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    min-height: 52px;
-    padding: 0 22px;
-    border-radius: 14px;
+    min-height: 54px;
+    padding: 0 24px;
+    border-radius: 15px;
     font-size: 13px;
     font-weight: 700;
-    transition: .3s;
+    transition:
+        transform .3s,
+        box-shadow .3s,
+        background .3s;
 }
 
 .primary-btn {
     color: #100817;
-    background: linear-gradient(135deg, #fff, #cdaeff);
-    box-shadow: 0 15px 40px rgba(144, 76, 255, .22);
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #e8d5ff 45%,
+            #bd8cff 100%
+        );
+    box-shadow:
+        0 15px 40px rgba(144, 76, 255, .20);
 }
 
 .primary-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 20px 55px rgba(144,76,255,.4);
+    transform: translateY(-4px);
+    box-shadow:
+        0 20px 55px rgba(144,76,255,.38);
+}
+
+.primary-btn span:first-child {
+    font-size: 17px;
 }
 
 .secondary-btn {
     color: white;
-    border: 1px solid var(--border);
-    background: rgba(255,255,255,.035);
+    border: 1px solid rgba(255,255,255,.11);
+    background:
+        rgba(255,255,255,.035);
+    backdrop-filter: blur(12px);
 }
 
 .secondary-btn:hover {
     background: rgba(255,255,255,.08);
-    transform: translateY(-3px);
+    transform: translateY(-4px);
 }
+
+/* =========================
+   HERO TRUST
+========================= */
 
 .hero-trust {
     display: flex;
@@ -356,44 +503,123 @@ button {
     color: var(--purple);
 }
 
+/* =========================
+   PHONE SHOWCASE
+========================= */
+
 .hero-visual {
     display: flex;
     justify-content: center;
+    align-items: center;
     position: relative;
+    min-height: 650px;
+    z-index: 3;
 }
 
 .phone {
-    width: 290px;
-    height: 590px;
+    width: 300px;
+    height: 610px;
     padding: 9px;
     position: relative;
-    border-radius: 42px;
-    background: linear-gradient(145deg, #37313f, #09070d);
-    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 45px;
+    background:
+        linear-gradient(
+            145deg,
+            #46404e 0%,
+            #17121d 35%,
+            #08060c 100%
+        );
+    border: 1px solid rgba(255,255,255,.2);
     box-shadow:
-        0 50px 100px rgba(0,0,0,.6),
-        0 0 80px rgba(132,64,238,.18);
-    transform: rotate(3deg);
+        0 60px 120px rgba(0,0,0,.7),
+        0 0 100px rgba(132,64,238,.20),
+        inset 0 1px rgba(255,255,255,.16);
+    transform: rotate(4deg);
+    animation: phoneFloat 5s ease-in-out infinite;
+}
+
+@keyframes phoneFloat {
+    0%, 100% {
+        transform: rotate(4deg) translateY(0);
+    }
+
+    50% {
+        transform: rotate(3deg) translateY(-13px);
+    }
+}
+
+.phone::before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92px;
+    height: 25px;
+    border-radius: 0 0 17px 17px;
+    background: #05030a;
+    z-index: 10;
+}
+
+.phone::after {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(30px);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #24202b;
+    z-index: 11;
 }
 
 .phone-glow {
     position: absolute;
-    inset: 15%;
+    inset: 10%;
     background: #873cff;
     filter: blur(100px);
-    opacity: .15;
+    opacity: .18;
     z-index: -1;
 }
 
 .phone-screen {
     height: 100%;
-    border-radius: 34px;
+    border-radius: 36px;
     background:
-        radial-gradient(circle at 50% 32%, rgba(136,63,226,.2), transparent 30%),
-        linear-gradient(160deg, #130b1e, #07050b);
-    padding: 28px 20px;
+        radial-gradient(
+            circle at 50% 28%,
+            rgba(136,63,226,.24),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 20% 90%,
+            rgba(108,44,191,.08),
+            transparent 30%
+        ),
+        linear-gradient(
+            160deg,
+            #160c23,
+            #07050b
+        );
+    padding: 38px 20px 20px;
     overflow: hidden;
     position: relative;
+    border: 1px solid rgba(255,255,255,.05);
+}
+
+.phone-screen::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    top: 65px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    border: 1px solid rgba(177,111,255,.08);
+    box-shadow:
+        0 0 60px rgba(151,79,255,.08);
 }
 
 .phone-top {
@@ -402,6 +628,8 @@ button {
     font-size: 9px;
     color: #81758d;
     direction: ltr;
+    position: relative;
+    z-index: 3;
 }
 
 .connection-mini {
@@ -412,31 +640,44 @@ button {
     display: grid;
     place-items: center;
     margin-top: 48px;
+    position: relative;
+    z-index: 3;
 }
 
 .app-logo-letter {
-    width: 92px;
-    height: 92px;
+    width: 96px;
+    height: 96px;
     display: grid;
     place-items: center;
-    border-radius: 28px;
-    font-size: 65px;
+    border-radius: 29px;
+    font-size: 68px;
     font-weight: 800;
     color: white;
-    background: linear-gradient(145deg,#a763ff,#4b1d9d);
-    box-shadow: 0 0 50px rgba(145,74,255,.4);
+    background:
+        linear-gradient(
+            145deg,
+            #b877ff,
+            #742bc9 55%,
+            #45138d
+        );
+    box-shadow:
+        0 0 50px rgba(145,74,255,.35),
+        inset 0 1px rgba(255,255,255,.18);
 }
 
 .lightning {
     position: absolute;
-    margin-top: 65px;
+    margin-top: 67px;
     font-size: 25px;
     color: #f1e4ff;
+    text-shadow: 0 0 15px rgba(255,255,255,.4);
 }
 
 .phone-title {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 21px;
+    position: relative;
+    z-index: 3;
 }
 
 .phone-title strong,
@@ -455,13 +696,30 @@ button {
 }
 
 .connection-ring {
-    width: 150px;
-    height: 150px;
+    width: 154px;
+    height: 154px;
     margin: 30px auto;
     padding: 5px;
     border-radius: 50%;
-    background: conic-gradient(#b47cff, #5e24b5, #171020, #b47cff);
-    box-shadow: 0 0 45px rgba(146,72,255,.25);
+    background:
+        conic-gradient(
+            #c18aff,
+            #6526c0,
+            #21132e,
+            #6f2bce,
+            #c18aff
+        );
+    box-shadow:
+        0 0 45px rgba(146,72,255,.22);
+    position: relative;
+    z-index: 3;
+    animation: ringSpin 8s linear infinite;
+}
+
+@keyframes ringSpin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .ring-inner {
@@ -489,14 +747,19 @@ button {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
+    position: relative;
+    z-index: 3;
 }
 
 .phone-stats > div {
     padding: 13px 8px;
     border-radius: 14px;
     text-align: center;
-    background: rgba(255,255,255,.035);
+    background:
+        rgba(255,255,255,.035);
     border: 1px solid rgba(255,255,255,.05);
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.025);
 }
 
 .phone-stats strong {
@@ -518,8 +781,15 @@ button {
     margin-top: 9px;
     padding: 13px;
     border-radius: 14px;
-    background: rgba(147,80,255,.08);
-    border: 1px solid rgba(147,80,255,.12);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(147,80,255,.10),
+            rgba(255,255,255,.025)
+        );
+    border: 1px solid rgba(147,80,255,.14);
+    position: relative;
+    z-index: 3;
 }
 
 .phone-server span,
@@ -541,6 +811,79 @@ button {
     color: #6cf19b;
     font-size: 7px;
 }
+
+/* =========================
+   FLOATING HERO CHIPS
+========================= */
+
+.hero-visual::before,
+.hero-visual::after {
+    position: absolute;
+    z-index: 8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(180,130,255,.18);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(29,18,44,.86),
+            rgba(10,7,15,.86)
+        );
+    backdrop-filter: blur(16px);
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.35),
+        0 0 35px rgba(145,74,255,.08);
+    color: #ddd1ea;
+    font-family: "Inter", "Vazirmatn", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    border-radius: 13px;
+}
+
+.hero-visual::before {
+    content: "LOW PING  ↓";
+    width: 112px;
+    height: 43px;
+    top: 165px;
+    right: 15px;
+    animation: chipFloatOne 4s ease-in-out infinite;
+}
+
+.hero-visual::after {
+    content: "●  STABLE";
+    width: 100px;
+    height: 43px;
+    bottom: 145px;
+    left: 15px;
+    color: #83eeb0;
+    animation: chipFloatTwo 4.5s ease-in-out infinite;
+}
+
+@keyframes chipFloatOne {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes chipFloatTwo {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(9px);
+    }
+}
+
+/* =========================
+   MARQUEE
+========================= */
 
 .marquee-section {
     border-top: 1px solid var(--border);
@@ -568,9 +911,18 @@ button {
 }
 
 @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-30%); }
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-30%);
+    }
 }
+
+/* =========================
+   SECTIONS
+========================= */
 
 .section {
     width: min(var(--max), calc(100% - 36px));
@@ -602,6 +954,10 @@ button {
     color: var(--muted);
     font-size: 14px;
 }
+
+/* =========================
+   FEATURES
+========================= */
 
 .features-grid {
     display: grid;
@@ -666,6 +1022,10 @@ button {
     background: linear-gradient(90deg, transparent, var(--purple), transparent);
 }
 
+/* =========================
+   SERVERS
+========================= */
+
 .servers-section {
     padding-top: 50px;
 }
@@ -683,7 +1043,11 @@ button {
     border-radius: var(--radius);
     border: 1px solid var(--border);
     background:
-        radial-gradient(circle at 80% 15%, rgba(145,74,255,.13), transparent 28%),
+        radial-gradient(
+            circle at 80% 15%,
+            rgba(145,74,255,.13),
+            transparent 28%
+        ),
         var(--card);
     overflow: hidden;
     transition: .4s;
@@ -752,6 +1116,10 @@ button {
 .server-bottom strong {
     color: var(--purple-light);
 }
+
+/* =========================
+   VIP
+========================= */
 
 .vip-section {
     width: min(var(--max), calc(100% - 36px));
@@ -912,6 +1280,10 @@ button {
     background: rgba(255,255,255,.07);
 }
 
+/* =========================
+   STATS
+========================= */
+
 .stats-section {
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
@@ -948,6 +1320,10 @@ button {
     margin-top: 7px;
     display: block;
 }
+
+/* =========================
+   FAQ
+========================= */
 
 .faq-section {
     max-width: 850px;
@@ -1007,6 +1383,10 @@ button {
     transform: rotate(45deg);
 }
 
+/* =========================
+   DOWNLOAD
+========================= */
+
 .download-section {
     width: min(var(--max), calc(100% - 36px));
     margin: auto;
@@ -1059,6 +1439,10 @@ button {
     font-size: 13px;
     margin: 18px 0 28px;
 }
+
+/* =========================
+   FOOTER
+========================= */
 
 footer {
     border-top: 1px solid var(--border);
@@ -1119,16 +1503,26 @@ footer {
     direction: ltr;
 }
 
+/* =========================
+   REVEAL
+========================= */
+
 .reveal {
     opacity: 0;
     transform: translateY(35px);
-    transition: opacity .8s ease, transform .8s ease;
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
 }
 
 .reveal.visible {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* =========================
+   TABLET
+========================= */
 
 @media (max-width: 900px) {
 
@@ -1171,6 +1565,17 @@ footer {
         text-align: center;
     }
 
+    .hero::before {
+        right: 50%;
+        transform: translateX(50%);
+        top: 150px;
+    }
+
+    .hero::after {
+        right: 50%;
+        transform: translateX(50%) rotate(12deg);
+    }
+
     .status-pill,
     .hero-trust {
         margin-left: auto;
@@ -1187,7 +1592,17 @@ footer {
     }
 
     .hero-visual {
-        margin-top: 50px;
+        margin-top: 45px;
+    }
+
+    .hero-visual::before {
+        right: calc(50% - 210px);
+        top: 150px;
+    }
+
+    .hero-visual::after {
+        left: calc(50% - 210px);
+        bottom: 135px;
     }
 
     .features-grid,
@@ -1227,6 +1642,10 @@ footer {
     }
 }
 
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 600px) {
 
     .cursor-glow {
@@ -1237,13 +1656,21 @@ footer {
         height: 68px;
     }
 
+    .hero {
+        width: min(100% - 28px, 500px);
+        padding-top: 125px;
+        padding-bottom: 85px;
+    }
+
     .hero h1 {
         font-size: 48px;
-        letter-spacing: -2px;
+        line-height: 1.04;
+        letter-spacing: -2.5px;
     }
 
     .hero-description {
         font-size: 13px;
+        line-height: 1.9;
     }
 
     .hero-actions {
@@ -1255,20 +1682,67 @@ footer {
         width: 100%;
     }
 
+    .hero-visual {
+        min-height: 580px;
+        margin-top: 30px;
+    }
+
     .phone {
         width: 255px;
         height: 520px;
+        border-radius: 39px;
+    }
+
+    .phone-screen {
+        border-radius: 31px;
+        padding: 34px 17px 17px;
+    }
+
+    .phone::before {
+        width: 78px;
+        height: 22px;
     }
 
     .app-logo-letter {
         width: 76px;
         height: 76px;
         font-size: 52px;
+        border-radius: 24px;
+    }
+
+    .lightning {
+        margin-top: 53px;
+        font-size: 21px;
+    }
+
+    .app-logo {
+        margin-top: 43px;
+    }
+
+    .phone-title {
+        margin-top: 17px;
     }
 
     .connection-ring {
         width: 125px;
         height: 125px;
+        margin: 25px auto;
+    }
+
+    .hero-visual::before {
+        right: calc(50% - 142px);
+        top: 80px;
+        width: 94px;
+        height: 38px;
+        font-size: 8px;
+    }
+
+    .hero-visual::after {
+        left: calc(50% - 142px);
+        bottom: 85px;
+        width: 90px;
+        height: 38px;
+        font-size: 8px;
     }
 
     .section {
@@ -1329,6 +1803,10 @@ footer {
     }
 }
 
+/* =========================
+   REDUCED MOTION
+========================= */
+
 @media (prefers-reduced-motion: reduce) {
 
     html {
@@ -1341,4 +1819,4 @@ footer {
         animation-duration: .01ms !important;
         transition-duration: .01ms !important;
     }
-      }
+}
