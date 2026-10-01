@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090612">
+  <meta name="description" content="Light DNS — DNS سریع، پایدار و گیمینگ برای اندروید.">
+  <title>Light DNS | DNS سریع و گیمینگ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Light DNS">
+        <span class="brand-mark">L</span>
+        <span>Light <b>DNS</b></span>
+      </a>
+
+      <nav class="desktop-nav">
+        <a href="#features" data-i18n="nav_features">قابلیت‌ها</a>
+        <a href="#servers" data-i18n="nav_servers">سرورها</a>
+        <a href="#download" data-i18n="nav_download">دانلود</a>
+        <a href="#faq" data-i18n="nav_faq">سؤالات</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="lang-btn" id="langBtn" type="button">EN</button>
+        <a class="nav-download" href="https://myket.ir/app/com.lightdns.ir" target="_blank" rel="noopener" data-i18n="download">دانلود</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero container">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse-dot"></span><span data-i18n="eyebrow">اتصال سریع‌تر، تجربه روان‌تر</span></div>
+        <h1 data-i18n="hero_title">اینترنتت را<br><span>سبک‌تر</span> کن.</h1>
+        <p data-i18n="hero_text">Light DNS یک ابزار ساده و قدرتمند برای انتخاب DNS، کاهش تأخیر و تجربه بهتر در بازی‌ها و اینترنت روزمره است.</p>
+
+        <div class="hero-buttons">
+          <a class="btn primary" href="https://myket.ir/app/com.lightdns.ir" target="_blank" rel="noopener">
+            <span data-i18n="download_myket">دریافت از مایکت</span><span>↗</span>
+          </a>
+          <a class="btn secondary" href="#features" data-i18n="learn_more">بیشتر بدانید</a>
+        </div>
+
+        <div class="trust-row">
+          <span>⚡ <b data-i18n="trust_fast">سریع</b></span>
+          <span>◈ <b data-i18n="trust_servers">سرورهای متنوع</b></span>
+          <span>✓ <b data-i18n="trust_simple">ساده و کاربردی</b></span>
+        </div>
+      </div>
+
+      <div class="phone-wrap" aria-label="Light DNS app preview">
+        <div class="glow-ring"></div>
+        <div class="phone">
+          <div class="phone-top">
+            <span>9:41</span><span>● ● ▰</span>
+          </div>
+          <div class="app-logo">L<span>ϟ</span></div>
+          <div class="phone-title">Light DNS</div>
+          <div class="status-card">
+            <small data-i18n="preview_status">وضعیت اتصال</small>
+            <strong data-i18n="preview_ready">آماده اتصال</strong>
+            <div class="status-line"></div>
+          </div>
+          <button class="connect-demo" type="button" id="demoConnect" data-i18n="connect">اتصال</button>
+          <div class="mini-stats">
+            <div><span>Ping</span><b id="demoPing">32 ms</b></div>
+            <div><span>DNS</span><b>Gaming</b></div>
+          </div>
+          <div class="phone-nav"><span>⌂</span><span>◉</span><span>⚙</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats container">
+      <div><strong>1</strong><span data-i18n="stat_one">اپلیکیشن برای مدیریت DNS</span></div>
+      <div><strong>24/7</strong><span data-i18n="stat_two">قابل استفاده در هر زمان</span></div>
+      <div><strong>⚡</strong><span data-i18n="stat_three">تمرکز روی سرعت و سادگی</span></div>
+    </section>
+
+    <section class="section container" id="features">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker" data-i18n="kicker_features">چرا Light DNS؟</span>
+          <h2 data-i18n="features_title">ابزارهای مهم، بدون پیچیدگی.</h2>
+        </div>
+        <p data-i18n="features_text">انتخاب سرور و DNS را ساده کردیم تا سریع‌تر به چیزی که می‌خواهی برسی.</p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card featured">
+          <div class="icon">⚡</div>
+          <h3 data-i18n="feature_1_title">Gaming DNS</h3>
+          <p data-i18n="feature_1_text">انتخاب DNSهای مناسب برای تجربه روان‌تر در بازی‌های آنلاین.</p>
+          <span class="card-line"></span>
+        </article>
+        <article class="feature-card">
+          <div class="icon">◈</div>
+          <h3 data-i18n="feature_2_title">سرورهای متنوع</h3>
+          <p data-i18n="feature_2_text">چند گزینه برای سناریوهای مختلف، از بازی و دانلود تا استفاده روزمره.</p>
+        </article>
+        <article class="feature-card">
+          <div class="icon">⌁</div>
+          <h3 data-i18n="feature_3_title">نمایش تأخیر</h3>
+          <p data-i18n="feature_3_text">پینگ و وضعیت اتصال را در محیطی ساده و قابل فهم ببین.</p>
+        </article>
+        <article class="feature-card">
+          <div class="icon">✦</div>
+          <h3 data-i18n="feature_4_title">طراحی سبک</h3>
+          <p data-i18n="feature_4_text">رابط کاربری مدرن، سریع و مناسب استفاده روزانه.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section server-section" id="servers">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker" data-i18n="kicker_servers">SERVER NETWORK</span>
+          <h2 data-i18n="servers_title">برای هر نیاز، یک انتخاب.</h2>
+        </div>
+        <p data-i18n="servers_text">سرورها و DNSها را مستقیماً داخل اپ انتخاب کن.</p>
+      </div>
+
+      <div class="server-grid">
+        <article class="server-card special">
+          <div class="server-top"><span class="server-badge">VIP</span><span class="server-status"></span></div>
+          <h3 data-i18n="server_1">VIP SERVER 1</h3>
+          <p data-i18n="server_1_text">سرور وایرگارد گیمینگ اختصاصی برای تجربه بهتر بازی.</p>
+          <div class="server-meta"><span>Gaming</span><span>WireGuard</span></div>
+        </article>
+        <article class="server-card">
+          <div class="server-top"><span class="server-badge">VIP</span><span class="server-status"></span></div>
+          <h3 data-i18n="server_2">VIP SERVER 2</h3>
+          <p data-i18n="server_2_text">DNS ویژه با تمرکز روی پینگ و اتصال پایدار.</p>
+          <div class="server-meta"><span>Gaming</span><span>DNS</span></div>
+        </article>
+        <article class="server-card">
+          <div class="server-top"><span class="server-badge">VIP</span><span class="server-status"></span></div>
+          <h3 data-i18n="server_3">VIP SERVER 3</h3>
+          <p data-i18n="server_3_text">گزینه‌ای مناسب برای دانلود و استفاده روزمره.</p>
+          <div class="server-meta"><span>Download</span><span>DNS</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="download-section container" id="download">
+      <div class="download-box">
+        <div>
+          <span class="section-kicker" data-i18n="kicker_download">GET LIGHT DNS</span>
+          <h2 data-i18n="download_title">سبک‌تر وصل شو.</h2>
+          <p data-i18n="download_text">نسخه اندروید Light DNS را از مایکت دریافت کن.</p>
+        </div>
+        <a class="btn primary large" href="https://myket.ir/app/com.lightdns.ir" target="_blank" rel="noopener">
+          <span data-i18n="download_now">دانلود Light DNS</span><span>↗</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section faq container" id="faq">
+      <div class="section-head single">
+        <div>
+          <span class="section-kicker" data-i18n="kicker_faq">FAQ</span>
+          <h2 data-i18n="faq_title">سؤالات متداول</h2>
+        </div>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary data-i18n="faq_1_q">Light DNS برای چه دستگاهی است؟</summary>
+          <p data-i18n="faq_1_a">نسخه فعلی سایت برای معرفی نسخه اندروید Light DNS طراحی شده است.</p>
+        </details>
+        <details>
+          <summary data-i18n="faq_2_q">آیا استفاده از برنامه رایگان است؟</summary>
+          <p data-i18n="faq_2_a">نسخه رایگان برنامه در دسترس است و برخی امکانات ویژه نیز به‌صورت جداگانه ارائه می‌شوند.</p>
+        </details>
+        <details>
+          <summary data-i18n="faq_3_q">از کجا برنامه را دانلود کنم؟</summary>
+          <p data-i18n="faq_3_a">روی دکمه دانلود بزن تا وارد صفحه رسمی Light DNS در مایکت شوی.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="brand"><span class="brand-mark">L</span><span>Light <b>DNS</b></span></div>
+      <span data-i18n="footer">© 2026 Light DNS. All rights reserved.</span>
+      <a href="#home" data-i18n="back_top">بازگشت به بالا ↑</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
