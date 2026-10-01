@@ -1,5 +1,4 @@
-<!DOCTYPE html><html lang="fa" dir="rtl">
-<head>
+<!DOCTYPE html><html lang="fa" dir="rtl"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Light DNS | Better Connection</title>
 
@@ -8,378 +7,15 @@
 
 <link rel="stylesheet" href="style.css">
 
-<style>
-    /* CREATOR CARD */
-
-    .creator-section {
-        width: 100%;
-        padding: 80px 20px 110px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .creator-card {
-        width: min(100%, 900px);
-        min-height: 390px;
-        margin: 0 auto;
-        position: relative;
-        overflow: hidden;
-        border-radius: 34px;
-        padding: 32px 38px;
-        background:
-            radial-gradient(circle at 78% 20%, rgba(155, 92, 255, .18), transparent 32%),
-            radial-gradient(circle at 18% 80%, rgba(54, 217, 255, .11), transparent 30%),
-            linear-gradient(135deg, rgba(13, 17, 30, .96), rgba(4, 6, 13, .98));
-        border: 1px solid rgba(255,255,255,.09);
-        box-shadow:
-            0 30px 90px rgba(0,0,0,.45),
-            0 0 70px rgba(126, 77, 255, .10);
-        isolation: isolate;
-        transition:
-            transform .6s cubic-bezier(.2,.8,.2,1),
-            box-shadow .6s ease,
-            border-color .6s ease;
-    }
-
-    .creator-card::before {
-        content: "";
-        position: absolute;
-        inset: -2px;
-        z-index: -2;
-        border-radius: inherit;
-        background:
-            conic-gradient(
-                from 0deg,
-                transparent 0deg,
-                rgba(155,92,255,.8) 55deg,
-                rgba(54,217,255,.8) 105deg,
-                transparent 150deg,
-                transparent 250deg,
-                rgba(99,246,160,.55) 300deg,
-                transparent 340deg
-            );
-        animation: creatorBorderSpin 8s linear infinite;
-    }
-
-    .creator-card::after {
-        content: "";
-        position: absolute;
-        inset: 1px;
-        z-index: -1;
-        border-radius: 33px;
-        background:
-            radial-gradient(circle at 50% 0%, rgba(255,255,255,.055), transparent 35%),
-            linear-gradient(135deg, #090c15, #04060b);
-    }
-
-    .creator-card:hover {
-        transform: translateY(-8px) perspective(1000px) rotateX(1deg);
-        border-color: rgba(177,130,255,.28);
-        box-shadow:
-            0 40px 110px rgba(0,0,0,.55),
-            0 0 90px rgba(126,77,255,.16);
-    }
-
-    .creator-card-glow {
-        position: absolute;
-        width: 420px;
-        height: 420px;
-        right: -160px;
-        top: -190px;
-        border-radius: 50%;
-        background: rgba(139,92,246,.15);
-        filter: blur(70px);
-        pointer-events: none;
-        animation: creatorGlow 6s ease-in-out infinite alternate;
-    }
-
-    .creator-card-line {
-        position: absolute;
-        left: 7%;
-        right: 7%;
-        top: 0;
-        height: 1px;
-        background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(54,217,255,.7),
-            rgba(155,92,255,.9),
-            rgba(99,246,160,.6),
-            transparent
-        );
-        box-shadow: 0 0 20px rgba(155,92,255,.5);
-        animation: creatorLinePulse 3s ease-in-out infinite;
-    }
-
-    .creator-card-noise {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        opacity: .035;
-        background-image:
-            repeating-linear-gradient(
-                0deg,
-                rgba(255,255,255,.5) 0,
-                rgba(255,255,255,.5) 1px,
-                transparent 1px,
-                transparent 4px
-            );
-        mix-blend-mode: overlay;
-    }
-
-    .creator-top,
-    .creator-bottom {
-        position: relative;
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-    }
-
-    .creator-index {
-        font-size: 12px;
-        letter-spacing: .22em;
-        color: rgba(255,255,255,.38);
-        font-weight: 700;
-    }
-
-    .creator-label {
-        font-size: 11px;
-        letter-spacing: .28em;
-        color: #36d9ff;
-        font-weight: 800;
-    }
-
-    .creator-content {
-        position: relative;
-        z-index: 2;
-        padding: 68px 0 54px;
-    }
-
-    .creator-intro {
-        display: block;
-        margin-bottom: 12px;
-        font-size: 14px;
-        color: rgba(255,255,255,.52);
-        font-weight: 500;
-    }
-
-    .creator-name {
-        margin: 0;
-        direction: ltr;
-        text-align: left;
-        font-family: Inter, sans-serif;
-        font-size: clamp(58px, 9vw, 104px);
-        line-height: .9;
-        letter-spacing: -.07em;
-        font-weight: 800;
-        color: #fff;
-        text-transform: uppercase;
-        text-shadow: 0 0 40px rgba(255,255,255,.08);
-        animation: creatorNameFloat 5s ease-in-out infinite;
-    }
-
-    .creator-name span {
-        display: block;
-        margin-top: 5px;
-        background: linear-gradient(
-            100deg,
-            #ffffff 0%,
-            #b8f4ff 25%,
-            #8d6cff 65%,
-            #d5b7ff 100%
-        );
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        filter: drop-shadow(0 0 24px rgba(139,92,246,.18));
-    }
-
-    .creator-role {
-        margin-top: 24px;
-        font-size: 15px;
-        color: rgba(255,255,255,.65);
-        font-weight: 500;
-    }
-
-    .creator-mark {
-        position: absolute;
-        left: 55px;
-        bottom: 78px;
-        width: 100px;
-        height: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        border: 1px solid rgba(255,255,255,.09);
-        background: rgba(255,255,255,.025);
-        box-shadow:
-            inset 0 0 35px rgba(139,92,246,.08),
-            0 0 40px rgba(54,217,255,.06);
-        transform: rotate(-12deg);
-        animation: creatorMarkFloat 5s ease-in-out infinite;
-    }
-
-    .creator-mark span {
-        font-family: Inter, sans-serif;
-        font-size: 52px;
-        font-weight: 800;
-        color: #fff;
-        text-shadow:
-            0 0 20px rgba(139,92,246,.8),
-            0 0 45px rgba(54,217,255,.25);
-    }
-
-    .creator-mark i {
-        position: absolute;
-        width: 7px;
-        height: 7px;
-        right: 12px;
-        top: 15px;
-        border-radius: 50%;
-        background: #63f6a0;
-        box-shadow: 0 0 18px #63f6a0;
-        animation: creatorDotPulse 2s ease-in-out infinite;
-    }
-
-    .creator-bottom {
-        border-top: 1px solid rgba(255,255,255,.07);
-        padding-top: 18px;
-    }
-
-    .creator-bottom span {
-        font-family: Inter, sans-serif;
-        font-size: 10px;
-        letter-spacing: .2em;
-        color: rgba(255,255,255,.35);
-        font-weight: 700;
-    }
-
-    @keyframes creatorBorderSpin {
-        to {
-            transform: rotate(360deg);
-        }
-    }
-
-    @keyframes creatorGlow {
-        from {
-            transform: translate3d(0,0,0) scale(1);
-            opacity: .65;
-        }
-        to {
-            transform: translate3d(-40px,35px,0) scale(1.15);
-            opacity: 1;
-        }
-    }
-
-    @keyframes creatorLinePulse {
-        0%, 100% {
-            opacity: .45;
-        }
-        50% {
-            opacity: 1;
-        }
-    }
-
-    @keyframes creatorNameFloat {
-        0%, 100% {
-            transform: translateY(0);
-        }
-        50% {
-            transform: translateY(-3px);
-        }
-    }
-
-    @keyframes creatorMarkFloat {
-        0%, 100% {
-            transform: rotate(-12deg) translateY(0);
-        }
-        50% {
-            transform: rotate(-8deg) translateY(-8px);
-        }
-    }
-
-    @keyframes creatorDotPulse {
-        0%, 100% {
-            transform: scale(1);
-            opacity: .65;
-        }
-        50% {
-            transform: scale(1.5);
-            opacity: 1;
-        }
-    }
-
-    @media (max-width: 700px) {
-        .creator-section {
-            padding: 55px 14px 75px;
-        }
-
-        .creator-card {
-            min-height: 370px;
-            padding: 25px 22px;
-            border-radius: 27px;
-        }
-
-        .creator-card::after {
-            border-radius: 26px;
-        }
-
-        .creator-content {
-            padding: 62px 0 80px;
-        }
-
-        .creator-name {
-            font-size: clamp(48px, 15vw, 72px);
-        }
-
-        .creator-role {
-            max-width: 75%;
-            line-height: 1.9;
-            font-size: 13px;
-        }
-
-        .creator-mark {
-            width: 72px;
-            height: 72px;
-            left: 25px;
-            bottom: 76px;
-        }
-
-        .creator-mark span {
-            font-size: 38px;
-        }
-
-        .creator-mark i {
-            width: 5px;
-            height: 5px;
-            right: 8px;
-            top: 10px;
-        }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .creator-card::before,
-        .creator-card-glow,
-        .creator-card-line,
-        .creator-name,
-        .creator-mark,
-        .creator-mark i {
-            animation: none;
-        }
-    }
-</style>
-
 </head><body><div class="cursor-glow"></div><div class="background">
     <div class="orb orb-one"></div>
     <div class="orb orb-two"></div>
     <div class="orb orb-three"></div>
     <div class="grid"></div>
     <div class="stars"></div>
-</div><header class="navbar">
-    <div class="nav-container">    <a href="#home" class="brand">
+</div><header class="navbar"><div class="nav-container">
+
+    <a href="#home" class="brand">
 
         <div class="brand-logo">
             <img src="file_000000004e148210b4edb3b196c72416.png"
@@ -807,9 +443,11 @@
             <div class="vip-benefits">
 
                 <div class="vip-benefit">
+
                     <span>01</span>
 
                     <div>
+
                         <strong data-fa="مخصوص تمام بازی‌ها"
                                 data-en="For All Games">
                             مخصوص تمام بازی‌ها
@@ -819,13 +457,17 @@
                                data-en="Made for all types of online games">
                             مناسب انواع بازی‌های آنلاین
                         </small>
+
                     </div>
+
                 </div>
 
                 <div class="vip-benefit">
+
                     <span>02</span>
 
                     <div>
+
                         <strong data-fa="اتصال پایدار"
                                 data-en="Stable Connection">
                             اتصال پایدار
@@ -835,13 +477,17 @@
                                data-en="More stability while gaming">
                             پایداری بیشتر هنگام بازی
                         </small>
+
                     </div>
+
                 </div>
 
                 <div class="vip-benefit">
+
                     <span>03</span>
 
                     <div>
+
                         <strong data-fa="سرورهای ویژه"
                                 data-en="Special Servers">
                             سرورهای ویژه
@@ -851,13 +497,17 @@
                                data-en="More options for your connection">
                             انتخاب‌های بیشتر برای اتصال
                         </small>
+
                     </div>
+
                 </div>
 
                 <div class="vip-benefit">
+
                     <span>04</span>
 
                     <div>
+
                         <strong data-fa="تجربه روان‌تر"
                                 data-en="Smoother Experience">
                             تجربه روان‌تر
@@ -867,7 +517,9 @@
                                data-en="For online gaming">
                             برای بازی آنلاین
                         </small>
+
                     </div>
+
                 </div>
 
             </div>
@@ -965,21 +617,27 @@
            class="official-link">
 
             <div class="official-icon telegram-icon">
+
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M21.5 3.5L18.3 20c-.24 1.17-.9 1.46-1.83.91l-5.05-3.72-2.44 2.35c-.27.27-.5.5-1.03.5l.37-5.14 9.36-8.46c.41-.37-.09-.57-.64-.2L5.46 13.15.52 11.6c-1.08-.34-1.1-1.08.23-1.6L20.04 2.47c.9-.34 1.69.2 1.46 1.03Z"/>
                 </svg>
+
             </div>
 
             <div>
+
                 <small>TELEGRAM</small>
 
                 <strong data-fa="پشتیبانی"
                         data-en="Support">
                     پشتیبانی
                 </strong>
+
             </div>
 
-            <span class="official-arrow">↗</span>
+            <span class="official-arrow">
+                ↗
+            </span>
 
         </a>
 
@@ -989,21 +647,27 @@
            class="official-link">
 
             <div class="official-icon telegram-icon">
+
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M21.5 3.5L18.3 20c-.24 1.17-.9 1.46-1.83.91l-5.05-3.72-2.44 2.35c-.27.27-.5.5-1.03.5l.37-5.14 9.36-8.46c.41-.37-.09-.57-.64-.2L5.46 13.15.52 11.6c-1.08-.34-1.1-1.08.23-1.6L20.04 2.47c.9-.34 1.69.2 1.46 1.03Z"/>
                 </svg>
+
             </div>
 
             <div>
+
                 <small>TELEGRAM</small>
 
                 <strong data-fa="کانال رسمی"
                         data-en="Official Channel">
                     کانال رسمی
                 </strong>
+
             </div>
 
-            <span class="official-arrow">↗</span>
+            <span class="official-arrow">
+                ↗
+            </span>
 
         </a>
 
@@ -1015,6 +679,7 @@
             <div class="official-icon rubika-icon">
 
                 <svg viewBox="0 0 48 48" aria-hidden="true">
+
                     <rect x="7"
                           y="7"
                           width="34"
@@ -1026,20 +691,25 @@
 
                     <path d="M17 18.5L31 24L17 29.5V18.5Z"
                           fill="currentColor"/>
+
                 </svg>
 
             </div>
 
             <div>
+
                 <small>RUBIKA</small>
 
                 <strong data-fa="کانال رسمی"
                         data-en="Official Channel">
                     کانال رسمی
                 </strong>
+
             </div>
 
-            <span class="official-arrow">↗</span>
+            <span class="official-arrow">
+                ↗
+            </span>
 
         </a>
 
@@ -1056,15 +726,19 @@
             </div>
 
             <div>
+
                 <small>MYKET</small>
 
                 <strong data-fa="دریافت برنامه"
                         data-en="Get the App">
                     دریافت برنامه
                 </strong>
+
             </div>
 
-            <span class="official-arrow">↗</span>
+            <span class="official-arrow">
+                ↗
+            </span>
 
         </a>
 
@@ -1118,7 +792,9 @@
     <div class="creator-card reveal">
 
         <div class="creator-card-glow"></div>
+
         <div class="creator-card-line"></div>
+
         <div class="creator-card-noise"></div>
 
         <div class="creator-top">
@@ -1226,5 +902,5 @@
 
 </div>
 
-</footer></body>
+</footer><script src="script.js"></script></body>
     </html>
